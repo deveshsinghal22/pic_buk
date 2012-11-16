@@ -80,7 +80,12 @@
 			$_SESSION['user'] = $val['first_name'];
 			$_SESSION['id'] = $val['id'];
 			$_SESSION['email'] = $val['email'];
-
+			$_SESSION['image'] = $val['image'];
+			if($val['gender'] == 'm')
+				$_SESSION['gender'] = 'MALE';
+			else
+				$_SESSION['gender'] = 'FEMALE';
+			if($val['type'] == 'n') {
 			switch($val['isActive']){
 				case 'p':
 					echo "your request is still pending";
@@ -91,6 +96,7 @@
 				default:
 					echo "invalid login";
 			
+			}
 		}
 	}
 	else {

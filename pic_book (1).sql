@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2012 at 05:32 AM
+-- Generation Time: Nov 16, 2012 at 09:40 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -22,7 +22,32 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `image`
+--
+-- Creation: Nov 08, 2012 at 11:17 AM
+--
+
+CREATE TABLE IF NOT EXISTS `image` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10000) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` enum('p','r','a') NOT NULL DEFAULT 'p',
+  PRIMARY KEY (`pid`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- RELATIONS FOR TABLE `image`:
+--   `user_id`
+--       `user` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
+--
+-- Creation: Oct 31, 2012 at 10:19 AM
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -38,13 +63,22 @@ CREATE TABLE IF NOT EXISTS `user` (
   `contact` varchar(20) NOT NULL,
   `address` varchar(20) NOT NULL,
   `marital_status` enum('s','m') NOT NULL DEFAULT 's',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
--- Dumping data for table `user`
+-- RELATIONS FOR TABLE `user`:
+--   `id`
+--       `user` -> `id`
 --
 
-INSERT INTO `user` VALUES(38, 'admin', 'user', 'm', 'pass', 'admin@test.com', 'none.jpg', 'a', 'p', '1234567890', 'jaipur', 's');
-INSERT INTO `user` VALUES(39, 'devesh', 'singhal', 'm', 'pass', 'devesh@test.com', 'none.jpg', 'n', 'a', '1234567890', 'jaipur', 's');
-INSERT INTO `user` VALUES(44, '', '', '', 'sfgdfgdfgdfgdfsgsd', 'admin@test.com', 'none.jpg', 'n', 'p', '1234567890', 'dfgdfgdg', '');
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `image`
+--
+ALTER TABLE `image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
